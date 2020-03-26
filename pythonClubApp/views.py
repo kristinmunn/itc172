@@ -9,3 +9,8 @@ def index (request):
 def getmeeting(request):
     type_list=Meeting.objects.all()
     return render(request, 'pythonApp/meeting.html' ,{'type_list' : type_list})
+
+# asgn 6
+def getMeetingMinutes(request):
+    type_list=MeetingMinutes.objects.all()
+    return render(request, 'pythonApp/MeetingMinutes.html', {'type_list': type_list})
