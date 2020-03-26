@@ -1,8 +1,4 @@
 from django.db import models
-
-# Create your models here.
-
-from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -19,27 +15,29 @@ class Meeting(models.Model):
     
     class Meta:
         db_table='meeting'
+        verbose_name_plural='meetings'
 
 #Meeting Minutes which will have fields for meeting id (a foreign key), attendance (a many to many field with User), Minutes text
 class MeetingMinutes(models.Model):
     minutestitle=models.CharField(max_length=255)
     meetingid=models.ForeignKey(Meeting, on_delete=models.CASCADE)
     attendance=models.ManyToManyField(User)
-    minutes=models.TextField()
+    minutesText=models.TextField()
 
     def __str__(self):
-        return self.minutestitle
+        return self.minutesText
     
     class Meta:
         db_table='meetingminutes'
-
+        verbose_name_plural='meeting_minutes'
+        
 #Resource which will have fields for resource name, resource type, URL, date entered, user id (foreign key with User), and description
 class Resource(models.Model):
     resourcename=models.CharField(max_length=255)
     resourcetype=models.CharField(max_length=255)
     resourceURL=models.URLField()
-    resourcedataentered=models.CharField(max_length=255)
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    resourcedataentered=models.DateField()
+    userid=models.ForeignKey(User, on_delete=models.DO_NOTHING)
     resourcedescription=models.TextField()
 
     def __str__(self):
@@ -47,6 +45,7 @@ class Resource(models.Model):
     
     class Meta:
         db_table='resource'
+        verbose_name_plural='resources'
 
 #Event which will have fields for event title, location, date, time, description and the user id of the member that posted it
 class Event(models.Model):
@@ -62,3 +61,4 @@ class Event(models.Model):
     
     class Meta:
         db_table='event'
+        verbose_name_plural='event'
