@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Events</h1>
+<table class = 'table'>
+    <tr>
+        <th>Event Title</th>
+        <th>Location</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Description</th>
+        <th>User ID</th>
+    </tr>
+    {% for data in event %}
+    <tr>
+        <td>{{ data.eventTitle }}</td>
+        <td>{{ data.location }}</td>
+        <td>{{ data.date }}</td>
+        <td>{{ data.time }}</td>
+        <td>{{ data.description }}</td>
+        <td>{{ data.userID }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

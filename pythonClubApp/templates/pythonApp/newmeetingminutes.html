@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>New Meeting Minutes</h2>
+<form method='POST' class='post-form'>
+    <table class='table'>
+        {% csrf_token %}
+        {{ minutes.as_table }}
+    </table>
+    <button type='submit' class='save btn btn-default'>Save</button>
+</form>
+{% endblock %}
