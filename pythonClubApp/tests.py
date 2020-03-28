@@ -7,32 +7,32 @@ from .forms import MeetingForm, ResourceForm, MeetingMinutesForm
 
 class MeetingTest(TestCase):
     def test_string(self):
-        meetingtitle=Meeting(meetingtitle='Annual Meeting')
-        self.assertEqual(str(meetingtitle), meetingtitle.meetingtitle)
+        meetingTitle=Meeting(meetingTitle='Annual Meeting')
+        self.assertEqual(str(meetingTitle), meetingTitle.meetingTitle)
  
     def test_table(self):
         self.assertEqual(str(Meeting._meta.db_table), 'meeting')
     
     def setUp(self):
-       meeting=Meeting(agenda='Voting on new club board members', location='Community Center', meetingDate='2020-06-23', meetingTime='03:00 pm')
+       meeting=Meeting(agenda='Voting on new mascot', location='Seattle Central College', meetingDate='2020-04-26', meetingTime='02:00 pm')
        return meeting
     
     def test_type(self):
         meeting=self.setUp()
-        self.assertEqual(str(meeting.agenda), 'Voting on new club board members')
+        self.assertEqual(str(meeting.agenda), 'Voting on new mascot')
 
     def test_string_location(self):
         meeting=self.setUp()
-        self.assertEqual(str(meeting.location), 'Community Center')
+        self.assertEqual(str(meeting.location), 'Seattle Central College')
     
     def test_string_date_time(self):
         meeting=self.setUp()
-        self.assertEqual(str(meeting.meetingtime), '03:00 pm')
-        self.assertEqual(str(meeting.meetingdate), '2020-06-23')
+        self.assertEqual(str(meeting.meetingTime), '02:00 pm')
+        self.assertEqual(str(meeting.meetingDate), '2020-04-26')
 
 class MeetingMinutesTest(TestCase):
     def test_string(self):
-        minutesText=MeetingMinutes(minutesText='Susie Sue was voted in as board president')
+        minutesText=MeetingMinutes(minutesText='Agreed on the Bald Eagle')
         self.assertEqual(str(minutesText), minutesText.minutesText)
     
     def test_table(self):
@@ -40,7 +40,7 @@ class MeetingMinutesTest(TestCase):
 
 class ResourceTest(TestCase):
     def test_string(self):
-        resourceName=Resource(resourceName='Offical Documentation')
+        resourceName=Resource(resourceName='Votes')
         self.assertEqual(str(resourceName), resourceName.resourceName)
 
     def test_table(self):
@@ -51,7 +51,7 @@ class ResourceTest(TestCase):
         self.resource=Resource(resourceName='Django Models', resourceType='offical Django documentation', url='https://docs.djangoproject.com/en/3.0/topics/db/models/', dateEntered='2020-01-23', userID=self.user, description='This is offical documentation on creating Django Models')
     
     def test_string_user(self):
-        self.assertEqual(str(self.user), self.resource.userid.get_username())
+        self.assertEqual(str(self.user), self.resource.userID.get_username())
 
     def test_string_url(self):
         url=self.resource.url
@@ -116,8 +116,8 @@ class ResourceFormTest(TestCase):
 class MeetingMinutesFormTest(TestCase):
     def setUp(self):
         User.objects.create(username='Steve')
-        User.objects.create(username='Aggie')
-        User.objects.create(username='Craig')
+        User.objects.create(username='Kristin')
+        User.objects.create(username='Toni')
         self.meeting=Meeting.objects.create(meetingTitle='Annual PyDay', meetingDate='2020-03-14', meetingTime='12:00 PM', location='Pagliacci Pizza', agenda='Pepperoni!')
 
     def test_typeform_is_valid(self):
@@ -132,7 +132,7 @@ class MeetingMinutesFormTest(TestCase):
 class NewMeetingAuthTest(TestCase):
     def setUp(self):
         self.test_user=User.objects.create_user(username='testuser1', password='P@ssw0rd1')
-        self.meeting=Meeting.objects.create(meetingTitle='Annual PyDay', meetingDate='2020-03-14', meetingTime='12:00 PM', location='pagliacci Pizza', agenda='Pepperoni!')
+        self.meeting=Meeting.objects.create(meetingTitle='Annual PyDay', meetingDate='2020-03-14', meetingTime='12:00 PM', location='Pagliacci Pizza', agenda='Pepperoni!')
     
     def test_redirect_if_not_logged_in(self):
         response=self.client.get(reverse('newmeeting'))
